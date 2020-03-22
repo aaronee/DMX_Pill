@@ -16,7 +16,8 @@ C_SRCS += \
 ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c \
 ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c \
 ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c \
-../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c 
+../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c \
+../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c 
 
 OBJS += \
 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o \
@@ -31,7 +32,8 @@ OBJS += \
 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o \
 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.o \
 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.o \
-./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.o 
+./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.o \
+./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.o 
 
 C_DEPS += \
 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.d \
@@ -46,14 +48,15 @@ C_DEPS += \
 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.d \
 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.d \
 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.d \
-./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.d 
+./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.d \
+./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
 Drivers/STM32F1xx_HAL_Driver/Src/%.o: ../Drivers/STM32F1xx_HAL_Driver/Src/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: GNU ARM Cross C Compiler'
-	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DSTM32F103xB -DDEBUG -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/Blink/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/Blink/Drivers/CMSIS/Include" -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/Blink/Drivers/STM32F1xx_HAL_Driver/Inc" -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/Blink/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/Blink/Inc" -std=gnu11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DSTM32F103xB -DDEBUG -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Include" -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc" -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc" -std=gnu11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

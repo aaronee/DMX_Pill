@@ -11,6 +11,12 @@
 #include "stm32f103xb.h"
 #include "stm32f1xx_hal.h"
 
+void SYSCLK_Init(void);
+void GPIO_Init(void);
+void Error_Handler(void);
+void UART_Init(void);
+
+extern 	UART_HandleTypeDef huart1;
 
 
 #endif /* INC_MAIN_H_ */

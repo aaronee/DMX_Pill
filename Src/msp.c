@@ -21,5 +21,21 @@ void HAL_MspInit(void)
 //	__HAL_RCC_PWR_CLK_ENABLE();
 	__HAL_RCC_AFIO_CLK_ENABLE(); // ENABLE AFIO to mapping pins alternate function
 }
+void HAL_UART_MspInit(UART_HandleTypeDef *huart)
+{
+	// Enable clock for USART1 + USART1IO
+	__HAL_RCC_USART1_CLK_ENABLE();
+	__HAL_RCC_GPIOA_CLK_ENABLE();
+	// Init io
+	GPIO_InitTypeDef USART1IO_param;
+	USART1IO_param.Pin = GPIO_PIN_9;
+	USART1IO_param.Mode = GPIO_MODE_AF_PP;
+	USART1IO_param.Pull = GPIO_NOPULL;
+	USART1IO_param.Speed = GPIO_SPEED_FREQ_LOW;
 
+	HAL_GPIO_Init(GPIOA,&USART1IO_param);
+	// Enable Interrupt
+	HAL_NVIC_EnableIRQ(USART1_IRQn);
+	HAL_NVIC_SetPriority(USART1_IRQn,15,0);
 
+}

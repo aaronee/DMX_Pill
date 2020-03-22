@@ -1,5 +1,5 @@
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.o: \
- ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c \
+Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.o: \
+ ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/stm32f1xx_hal_conf.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \

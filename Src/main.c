@@ -2,29 +2,42 @@
  * main.c
  *
  *  Created on: Mar. 13, 2020
- *      Author: khoahuynh
+ *      Author: AaronEE
+ *      Email: khoahuynh.ld@gmail.com
+ *      File: Main code for DMX Pill
+ *      Goal: 1/ Sending basic DMX512 signals
  */
 #include "main.h"
-#include <string.h>
-#include <stdio.h>
+#include "DMX_data_stream.h"
 
-void SYSCLK_Init(void);
-void GPIO_Init(void);
-void Error_Handler(void);
+UART_HandleTypeDef huart1 = {0};
 
 int main(void)
 {
+	/* Sof Reset Value code*/
+	/* Eof Reset Value code*/
+
+	/* Sof Initialize code */
 	HAL_Init();
 	GPIO_Init();
 	SYSCLK_Init();
-
+	UART_Init();
+	/*Eof Initialize code*/
 	while(1)
 	{
-		HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
-		HAL_Delay(500);
+		if(HAL_UART_GetState(&huart1) != HAL_UART_STATE_BUSY_TX)
+		{
+			if(HAL_UART_Transmit_IT(&huart1,DMX_frame,sizeof(DMX_frame)) != HAL_OK)
+			{
+				Error_Handler();
+			}
+		}
+//		HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
+//		HAL_Delay(500);
 	}
 	return 0;
 }
+
 void Error_Handler(void)
 {
 	while(1);
@@ -70,6 +83,21 @@ void GPIO_Init(void)
 	LEDIO_param.Speed = GPIO_SPEED_FREQ_LOW;
 	HAL_GPIO_Init(GPIOC,&LEDIO_param);
 }
+void UART_Init(void)
+{
+//	USE_HAL_UART_REGISTER_CALLBACKS = 1;
+	huart1.Instance = USART1;
+	huart1.Init.BaudRate = 250000;
+	huart1.Init.WordLength = UART_WORDLENGTH_8B;
+	huart1.Init.StopBits = UART_STOPBITS_2;
+	huart1.Init.Parity = UART_PARITY_NONE;
+	huart1.Init.Mode = UART_MODE_TX;
+	huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+	huart1.Init.OverSampling = UART_OVERSAMPLING_16;
 
+	if(HAL_UART_Init(&huart1) != HAL_OK)
+	{
+		Error_Handler();
+	}
 
-
+}

@@ -1,16 +1,17 @@
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.o: \
- ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c \
- /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
- /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/stm32f1xx_hal_conf.h \
- /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
- /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h \
- /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h \
+Src/DMX_data_stream.o: ../Src/DMX_data_stream.c \
+ /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/main.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Include/core_cm3.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Include/cmsis_version.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Include/cmsis_compiler.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Include/cmsis_gcc.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h \
+ /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
+ /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/stm32f1xx_hal_conf.h \
+ /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
+ /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h \
+ /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h \
+ /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h \
@@ -21,17 +22,10 @@ Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.o: \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
- /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
+ /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
+ /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/DMX_data_stream.h
 
-/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
-
-/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/stm32f1xx_hal_conf.h:
-
-/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h:
-
-/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h:
-
-/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h:
+/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/main.h:
 
 /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h:
 
@@ -44,6 +38,18 @@ Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.o: \
 /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Include/cmsis_gcc.h:
 
 /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h:
+
+/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
+
+/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/stm32f1xx_hal_conf.h:
+
+/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h:
+
+/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h:
+
+/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h:
+
+/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h:
 
 /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h:
 
@@ -66,3 +72,5 @@ Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.o: \
 /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h:
 
 /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
+
+/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/DMX_data_stream.h:

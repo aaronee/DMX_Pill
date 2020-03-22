@@ -17,7 +17,7 @@ S_UPPER_DEPS += \
 startup/%.o: ../startup/%.S
 	@echo 'Building file: $<'
 	@echo 'Invoking: GNU ARM Cross Assembler'
-	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -x assembler-with-cpp -DSTM32F103xB -DDEBUG -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/Blink/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/Blink/Drivers/CMSIS/Include" -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/Blink/Drivers/STM32F1xx_HAL_Driver/Inc" -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/Blink/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/Blink/Inc" -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -x assembler-with-cpp -DSTM32F103xB -DDEBUG -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Device/ST/STM32F1xx/Include" -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Include" -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc" -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy" -I"/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc" -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
