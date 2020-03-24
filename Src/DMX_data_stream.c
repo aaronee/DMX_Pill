@@ -59,7 +59,8 @@ void IBM_Start(DMX512_HandleTypeDef *hDMX512)
 	case 2:
 		HAL_GPIO_WritePin(hDMX512->GPIOx,hDMX512->GPIO_Pin,GPIO_PIN_SET);
 		IBM = 0;
-		HAL_TIM_Base_Stop_IT(hDMX512->htim); // Stop TIM - End IBM - begin sending DMX FRAMEs
+//		HAL_TIM_Base_Stop_IT(hDMX512->htim); // Stop TIM - End IBM - begin sending DMX FRAMEs
+		TIM4->CR1 = 0;
 		break;
 	default:
 		break;
@@ -68,17 +69,17 @@ void IBM_Start(DMX512_HandleTypeDef *hDMX512)
 
 void DMX_Start(DMX512_HandleTypeDef *hDMX512)
 {
-	while(HAL_UART_GetState(hDMX512->huart) != HAL_UART_STATE_BUSY_TX)
-	{
-		/*Start of mode switching*/
-		GPIO_InitTypeDef USART1IO_param;
-		USART1IO_param.Pin = hDMX512->GPIO_Pin;
-		USART1IO_param.Mode = GPIO_MODE_OUTPUT_PP;
-		USART1IO_param.Pull = GPIO_NOPULL;
-		USART1IO_param.Speed = GPIO_SPEED_FREQ_MEDIUM;
+	/*Start of mode switching*/
+	GPIO_InitTypeDef USART1IO_param;
+	USART1IO_param.Pin = hDMX512->GPIO_Pin;
+	USART1IO_param.Mode = GPIO_MODE_OUTPUT_PP;
+	USART1IO_param.Pull = GPIO_NOPULL;
+	USART1IO_param.Speed = GPIO_SPEED_FREQ_MEDIUM;
 
-		HAL_GPIO_Init(hDMX512->GPIOx,&USART1IO_param);
-		/*End of mode swithching*/
+	HAL_GPIO_Init(hDMX512->GPIOx,&USART1IO_param);
+	/*End of mode swithching*/
+	while(hDMX512->huart->gState != HAL_UART_STATE_BUSY_TX) //Stay here until TX start success - TX busy
+	{
 		/*Start sequence begin*/
 		if(!IBM_done)
 		{

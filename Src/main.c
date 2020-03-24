@@ -113,6 +113,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	IBM_Start(&hDMX);
 }
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
+{
+	DMX_Start(&hDMX);
+}
 void DMX_Init(void)
 {
 	hDMX.huart = &huart1;
