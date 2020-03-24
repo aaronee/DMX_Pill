@@ -8,9 +8,19 @@
 #ifndef INC_DMX_DATA_STREAM_H_
 #define INC_DMX_DATA_STREAM_H_
 
-extern void FRAME_Write(uint8_t ,uint8_t);
-extern void PACKET_start(void);
-extern uint8_t DMX_frame[513];
+typedef struct {
+	TIM_HandleTypeDef *htim;
+	UART_HandleTypeDef *huart;
+	GPIO_TypeDef *GPIOx; // GPIO Port for UART
+	uint16_t GPIO_Pin;	// Pin for UART TX
+	uint8_t DATA_frame[513];
+
+} DMX512_HandleTypeDef;
+
+extern void DMX_Write(DMX512_HandleTypeDef *hDMX512, uint8_t dmx_channel,uint8_t dmx_value);
+extern void IBM_Start(DMX512_HandleTypeDef *hDMX512);
+extern void DMX_Start(DMX512_HandleTypeDef *hDMX512);
+
 
 #endif /* INC_DMX_DATA_STREAM_H_ */
 

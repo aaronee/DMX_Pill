@@ -11,30 +11,23 @@
 #include "DMX_data_stream.h"
 
 UART_HandleTypeDef huart1 = {0};
+TIM_HandleTypeDef htim4 = {0};
+DMX512_HandleTypeDef hDMX = {0};
 
 int main(void)
 {
-	/* Sof Reset Value code*/
-	/* Eof Reset Value code*/
-
 	/* Sof Initialize code */
 	HAL_Init();
 	GPIO_Init();
 	SYSCLK_Init();
 	UART_Init();
+	TIM_Init();
+	DMX_Init();
 	/*Eof Initialize code*/
-	while(1)
-	{
-		if(HAL_UART_GetState(&huart1) != HAL_UART_STATE_BUSY_TX)
-		{
-			if(HAL_UART_Transmit_IT(&huart1,DMX_frame,sizeof(DMX_frame)) != HAL_OK)
-			{
-				Error_Handler();
-			}
-		}
-//		HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
-//		HAL_Delay(500);
-	}
+
+	DMX_Start(&hDMX);
+
+	while(1);
 	return 0;
 }
 
@@ -47,7 +40,10 @@ void SYSCLK_Init(void)
 	RCC_OscInitTypeDef OSCinit_param = {0};
 	OSCinit_param.OscillatorType = RCC_OSCILLATORTYPE_HSE;
 	OSCinit_param.HSEState = RCC_HSE_ON;
-	OSCinit_param.PLL.PLLState = RCC_PLL_NONE;
+	OSCinit_param.PLL.PLLState = RCC_PLL_ON;
+	OSCinit_param.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+	OSCinit_param.PLL.PLLMUL = RCC_PLL_MUL6; // HSE x6 = 48MHz
+	/*SYSCLK = 8MHz HSE PD0/PD1*/
 	if (HAL_RCC_OscConfig(&OSCinit_param) != HAL_OK)
 	{
 		Error_Handler();
@@ -55,16 +51,17 @@ void SYSCLK_Init(void)
 	RCC_ClkInitTypeDef CLKinit_param = {0};
 	CLKinit_param.ClockType = RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK |
 								RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
-	CLKinit_param.SYSCLKSource = RCC_SYSCLKSOURCE_HSE;
-	CLKinit_param.AHBCLKDivider = RCC_SYSCLK_DIV1;
-	CLKinit_param.APB1CLKDivider = RCC_HCLK_DIV1;
-	CLKinit_param.APB2CLKDivider = RCC_HCLK_DIV1;
-	if( HAL_RCC_ClockConfig(&CLKinit_param,FLASH_LATENCY_0) != HAL_OK)
+	CLKinit_param.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK; // 48M
+	CLKinit_param.AHBCLKDivider = RCC_SYSCLK_DIV1;	// 48M
+	CLKinit_param.APB1CLKDivider = RCC_HCLK_DIV8;	// 48M/8 = 6M
+	CLKinit_param.APB2CLKDivider = RCC_HCLK_DIV8;	//
+	if( HAL_RCC_ClockConfig(&CLKinit_param,FLASH_LATENCY_1) != HAL_OK)
 	{
 		Error_Handler();
 	}
 	HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
 	HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
+
 }
 void GPIO_Init(void)
 {
@@ -85,7 +82,6 @@ void GPIO_Init(void)
 }
 void UART_Init(void)
 {
-//	USE_HAL_UART_REGISTER_CALLBACKS = 1;
 	huart1.Instance = USART1;
 	huart1.Init.BaudRate = 250000;
 	huart1.Init.WordLength = UART_WORDLENGTH_8B;
@@ -101,3 +97,31 @@ void UART_Init(void)
 	}
 
 }
+void TIM_Init(void)
+{
+	htim4.Instance = TIM4;
+	htim4.Init.Prescaler = 0; // APB1 = 6Mhz => TIM4 clk = 6*2 = 12 Mhz
+	htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
+	htim4.Init.Period = 0xFFFE; // 65535 - 1
+
+	if (HAL_TIM_Base_Init(&htim4) != HAL_OK)
+	{
+		Error_Handler();
+	}
+}
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	IBM_Start(&hDMX);
+}
+void DMX_Init(void)
+{
+	hDMX.huart = &huart1;
+	hDMX.htim = &htim4;
+	hDMX.GPIOx = GPIOB;
+	hDMX.GPIO_Pin = GPIO_PIN_6;
+	DMX_Write(&hDMX,1,255);
+}
+
+
+
+

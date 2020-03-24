@@ -22,7 +22,10 @@ Src/Encoder_24B.o: ../Src/Encoder_24B.c \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
+ /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
+ /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
+ /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/DMX_data_stream.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/Encoder_24B.h
 
 /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/main.h:
@@ -71,6 +74,12 @@ Src/Encoder_24B.o: ../Src/Encoder_24B.c \
 
 /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h:
 
+/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h:
+
+/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
+
 /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
+
+/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/DMX_data_stream.h:
 
 /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/Encoder_24B.h:
