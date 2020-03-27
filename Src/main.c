@@ -12,7 +12,10 @@
 
 UART_HandleTypeDef huart1 = {0};
 TIM_HandleTypeDef htim4 = {0};
+TIM_HandleTypeDef htim3 = {0};
 DMX512_HandleTypeDef hDMX = {0};
+char mesg[20] = {0}; // testing
+uint32_t value = 0; // testing
 
 int main(void)
 {
@@ -22,15 +25,19 @@ int main(void)
 	SYSCLK_Init();
 	UART_Init();
 	TIM_Init();
-	DMX_Init();
 	/*Eof Initialize code*/
+	hDMX.huart = &huart1;
+	hDMX.htim = &htim4;
+	hDMX.GPIOx = GPIOB;
+	hDMX.GPIO_Pin = GPIO_PIN_6;
+	DMX_Write(&hDMX,1,255);
 
 	DMX_Start(&hDMX);
 
 	while(1);
 	return 0;
 }
-
+/*SYSTEM INIT			SYSTEM INIT			SYSTEM INIT			SYSTEM INIT			SYSTEM INIT*/
 void Error_Handler(void)
 {
 	while(1);
@@ -108,24 +115,52 @@ void TIM_Init(void)
 	{
 		Error_Handler();
 	}
+
+	/*TIM3---TIM3---TIM3---TIM3---TIM3---TIM3---TIM3---TIM3---TIM3---TIM3*/
+	htim3.Instance = TIM3;
+	htim3.Init.Prescaler = 0; // APB1 = 6Mhz => TIM4 clk = 6*2 = 12 Mhz
+	htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+	htim3.Init.Period = 2048; // 65535 - 1
+
+	TIM_Encoder_InitTypeDef TIM3C_param;
+	TIM3C_param.EncoderMode = TIM_ENCODERMODE_TI12;
+	TIM3C_param.IC1Polarity = TIM_ICPOLARITY_BOTHEDGE;
+	TIM3C_param.IC1Selection = TIM_ICSELECTION_DIRECTTI;
+	TIM3C_param.IC1Prescaler = TIM_ICPSC_DIV1;
+	TIM3C_param.IC1Filter = 0xF;
+	TIM3C_param.IC2Polarity = TIM_ICPOLARITY_BOTHEDGE;
+	TIM3C_param.IC2Selection = TIM_ICSELECTION_DIRECTTI;
+	TIM3C_param.IC2Prescaler = TIM_ICPSC_DIV1;
+	TIM3C_param.IC2Filter = 0xF;
+
+	if (HAL_TIM_Encoder_Init(&htim3,&TIM3C_param) != HAL_OK)
+	{
+		Error_Handler();
+	}
 }
+
+/*ISR CALLBACK			ISR CALLBACK			ISR CALLBACK			ISR CALLBACK*/
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	IBM_Start(&hDMX);
+	if(htim->Instance == hDMX.htim->Instance)
+	{
+		IBM_Start(&hDMX);
+	}
 }
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
-	DMX_Start(&hDMX);
+	if(huart->Instance == hDMX.huart->Instance)
+	{
+		DMX_Start(&hDMX);
+	}
 }
-void DMX_Init(void)
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
-	hDMX.huart = &huart1;
-	hDMX.htim = &htim4;
-	hDMX.GPIOx = GPIOB;
-	hDMX.GPIO_Pin = GPIO_PIN_6;
-	DMX_Write(&hDMX,1,255);
+	if (htim->Instance == TIM3)
+	{
+		sprintf(mesg,"%lu \r\n",1+(TIM3->CNT)/4);
+		HAL_UART_Transmit(&huart1, (uint8_t *)mesg, strlen(mesg), HAL_MAX_DELAY);
+	}
 }
-
-
 
 

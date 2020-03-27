@@ -23,30 +23,53 @@ void HAL_MspInit(void)
 }
 void HAL_UART_MspInit(UART_HandleTypeDef *huart)
 {
-	// Enable clock for USART1 + USART1IO
-	__HAL_RCC_USART1_CLK_ENABLE();
-	__HAL_RCC_GPIOB_CLK_ENABLE();
-	// Init io
-	GPIO_InitTypeDef USART1IO_param;
-	USART1IO_param.Pin = GPIO_PIN_6;
-	USART1IO_param.Mode = GPIO_MODE_AF_PP;
-	USART1IO_param.Pull = GPIO_NOPULL;
-	USART1IO_param.Speed = GPIO_SPEED_FREQ_MEDIUM;
+	if (huart->Instance == huart1.Instance)
+	{
+		// Enable clock for USART1 + USART1IO
+		__HAL_RCC_USART1_CLK_ENABLE();
+		__HAL_RCC_GPIOB_CLK_ENABLE();
+		// Init io
+		GPIO_InitTypeDef USART1IO_param;
+		USART1IO_param.Pin = GPIO_PIN_6;
+		USART1IO_param.Mode = GPIO_MODE_AF_PP;
+		USART1IO_param.Pull = GPIO_NOPULL;
+		USART1IO_param.Speed = GPIO_SPEED_FREQ_MEDIUM;
 
-	HAL_GPIO_Init(GPIOB,&USART1IO_param);
-	__HAL_AFIO_REMAP_USART1_ENABLE();
-	/* Set DMXIO state to 0 as UART mode is enable*/
-	DMXIO_state = 0;
-	// Enable Interrupt
-	HAL_NVIC_EnableIRQ(USART1_IRQn);
-	HAL_NVIC_SetPriority(USART1_IRQn,15,0);
+		HAL_GPIO_Init(GPIOB,&USART1IO_param);
+		__HAL_AFIO_REMAP_USART1_ENABLE();
+		// Enable Interrupt
+		HAL_NVIC_EnableIRQ(USART1_IRQn);
+		HAL_NVIC_SetPriority(USART1_IRQn,15,0);
+	}
 
 }
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim)
 {
-	// Enable clock for TIM4
-	__HAL_RCC_TIM4_CLK_ENABLE();
-	// Enable Interrupt
-	HAL_NVIC_EnableIRQ(TIM4_IRQn);
-	HAL_NVIC_SetPriority(TIM4_IRQn,14,0);
+	if(htim->Instance == htim4.Instance)
+	{
+		// Enable clock for TIM4
+		__HAL_RCC_TIM4_CLK_ENABLE();
+		// Enable Interrupt
+		HAL_NVIC_EnableIRQ(TIM4_IRQn);
+		HAL_NVIC_SetPriority(TIM4_IRQn,14,0);
+	}
+
+	if (htim->Instance == htim3.Instance)
+	{
+		// Enable clk for TIM3 and GPIOB
+		__HAL_RCC_TIM3_CLK_ENABLE();
+		__HAL_RCC_GPIOA_CLK_ENABLE();
+		// Config IO for TIM3C(1-2-3-4)
+		GPIO_InitTypeDef TIM3IO_param;
+		TIM3IO_param.Mode = GPIO_MODE_AF_INPUT;
+		TIM3IO_param.Pin = GPIO_PIN_6 | GPIO_PIN_7;
+		TIM3IO_param.Pull = GPIO_PULLDOWN;
+		TIM3IO_param.Speed = GPIO_SPEED_FREQ_LOW;
+		HAL_GPIO_Init(GPIOA,&TIM3IO_param);
+		// Enable Interrupt
+		HAL_NVIC_EnableIRQ(TIM3_IRQn);
+		HAL_NVIC_SetPriority(TIM3_IRQn,15,0);
+
+	}
+
 }

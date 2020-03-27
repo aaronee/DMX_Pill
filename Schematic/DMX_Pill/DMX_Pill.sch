@@ -1,0 +1,215 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Device:Rotary_Encoder SW1
+U 1 1 5E7B7700
+P 1800 1500
+F 0 "SW1" H 2030 1546 50  0000 L CNN
+F 1 "ECW1J-B24-BC0024" H 2030 1455 50  0000 L CNN
+F 2 "" H 1650 1660 50  0001 C CNN
+F 3 "~" H 1800 1760 50  0001 C CNN
+	1    1800 1500
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5E7E420C
+P 2600 1500
+F 0 "#PWR?" H 2600 1350 50  0001 C CNN
+F 1 "+3.3V" H 2615 1673 50  0000 C CNN
+F 2 "" H 2600 1500 50  0001 C CNN
+F 3 "" H 2600 1500 50  0001 C CNN
+	1    2600 1500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2100 1500 2600 1500
+Text GLabel 2600 1050 2    50   Input ~ 0
+TIM3C3
+Wire Wire Line
+	2100 1400 2200 1400
+Text GLabel 2600 1600 2    50   Input ~ 0
+TIM3C4
+$Comp
+L MCU_ST_STM32F1:STM32F103C8Tx U1
+U 1 1 5E7BAC29
+P 6350 4250
+F 0 "U1" H 6300 2661 50  0000 C CNN
+F 1 "STM32F103C8T6" H 6300 2570 50  0000 C CNN
+F 2 "Package_QFP:LQFP-48_7x7mm_P0.5mm" H 5750 2850 50  0001 R CNN
+F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00161566.pdf" H 6350 4250 50  0001 C CNN
+	1    6350 4250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5650 4550 5600 4550
+Wire Wire Line
+	5650 4450 5600 4450
+Text GLabel 5600 4550 0    50   Input ~ 0
+TIM3C2
+Text GLabel 5600 4450 0    50   Input ~ 0
+TIM3C1
+Wire Wire Line
+	5650 4050 5600 4050
+Wire Wire Line
+	5650 4150 5600 4150
+Text GLabel 5600 4150 0    50   Input ~ 0
+TIM3C4
+Text GLabel 5600 4050 0    50   Input ~ 0
+TIM3C3
+$Comp
+L Device:C_Small C3
+U 1 1 5E7ED0B1
+P 2350 1150
+F 0 "C3" H 2442 1196 50  0000 L CNN
+F 1 "18pF" H 2442 1105 50  0000 L CNN
+F 2 "" H 2350 1150 50  0001 C CNN
+F 3 "~" H 2350 1150 50  0001 C CNN
+	1    2350 1150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2350 1050 2200 1050
+Wire Wire Line
+	2200 1050 2200 1400
+Connection ~ 2350 1050
+$Comp
+L power:GND #PWR?
+U 1 1 5E7EE64D
+P 2350 1250
+F 0 "#PWR?" H 2350 1000 50  0001 C CNN
+F 1 "GND" H 2355 1077 50  0000 C CNN
+F 2 "" H 2350 1250 50  0001 C CNN
+F 3 "" H 2350 1250 50  0001 C CNN
+	1    2350 1250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2350 1050 2600 1050
+Wire Wire Line
+	2100 1600 2350 1600
+$Comp
+L Device:C_Small C4
+U 1 1 5E7EF681
+P 2350 1700
+F 0 "C4" H 2442 1746 50  0000 L CNN
+F 1 "18pF" H 2442 1655 50  0000 L CNN
+F 2 "" H 2350 1700 50  0001 C CNN
+F 3 "~" H 2350 1700 50  0001 C CNN
+	1    2350 1700
+	1    0    0    -1  
+$EndComp
+Connection ~ 2350 1600
+Wire Wire Line
+	2350 1600 2600 1600
+$Comp
+L power:GND #PWR?
+U 1 1 5E7F0C43
+P 2350 1800
+F 0 "#PWR?" H 2350 1550 50  0001 C CNN
+F 1 "GND" H 2355 1627 50  0000 C CNN
+F 2 "" H 2350 1800 50  0001 C CNN
+F 3 "" H 2350 1800 50  0001 C CNN
+	1    2350 1800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Rotary_Encoder SW2
+U 1 1 5E7F6F2D
+P 4100 1450
+F 0 "SW2" H 4330 1496 50  0000 L CNN
+F 1 "ECW1J-B24-BC0024" H 4330 1405 50  0000 L CNN
+F 2 "" H 3950 1610 50  0001 C CNN
+F 3 "~" H 4100 1710 50  0001 C CNN
+	1    4100 1450
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5E7F6F33
+P 4900 1450
+F 0 "#PWR?" H 4900 1300 50  0001 C CNN
+F 1 "+3.3V" H 4915 1623 50  0000 C CNN
+F 2 "" H 4900 1450 50  0001 C CNN
+F 3 "" H 4900 1450 50  0001 C CNN
+	1    4900 1450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4400 1450 4900 1450
+Text GLabel 4900 1000 2    50   Input ~ 0
+TIM3C1
+Wire Wire Line
+	4400 1350 4500 1350
+Text GLabel 4900 1550 2    50   Input ~ 0
+TIM3C2
+$Comp
+L Device:C_Small C1
+U 1 1 5E7F6F3D
+P 4650 1100
+F 0 "C1" H 4742 1146 50  0000 L CNN
+F 1 "18pF" H 4742 1055 50  0000 L CNN
+F 2 "" H 4650 1100 50  0001 C CNN
+F 3 "~" H 4650 1100 50  0001 C CNN
+	1    4650 1100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4650 1000 4500 1000
+Wire Wire Line
+	4500 1000 4500 1350
+Connection ~ 4650 1000
+$Comp
+L power:GND #PWR?
+U 1 1 5E7F6F46
+P 4650 1200
+F 0 "#PWR?" H 4650 950 50  0001 C CNN
+F 1 "GND" H 4655 1027 50  0000 C CNN
+F 2 "" H 4650 1200 50  0001 C CNN
+F 3 "" H 4650 1200 50  0001 C CNN
+	1    4650 1200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4650 1000 4900 1000
+Wire Wire Line
+	4400 1550 4650 1550
+$Comp
+L Device:C_Small C2
+U 1 1 5E7F6F4E
+P 4650 1650
+F 0 "C2" H 4742 1696 50  0000 L CNN
+F 1 "18pF" H 4742 1605 50  0000 L CNN
+F 2 "" H 4650 1650 50  0001 C CNN
+F 3 "~" H 4650 1650 50  0001 C CNN
+	1    4650 1650
+	1    0    0    -1  
+$EndComp
+Connection ~ 4650 1550
+Wire Wire Line
+	4650 1550 4900 1550
+$Comp
+L power:GND #PWR?
+U 1 1 5E7F6F56
+P 4650 1750
+F 0 "#PWR?" H 4650 1500 50  0001 C CNN
+F 1 "GND" H 4655 1577 50  0000 C CNN
+F 2 "" H 4650 1750 50  0001 C CNN
+F 3 "" H 4650 1750 50  0001 C CNN
+	1    4650 1750
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC

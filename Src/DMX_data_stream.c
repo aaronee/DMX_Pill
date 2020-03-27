@@ -13,12 +13,12 @@
  *      		& ULTRATEC POCKET CONSOLE DMX CONTROLLER - CLF-4463	reference signal
  *
  *      				MIN		|	TYP		| 	MAX		|	Unit	|	Logic
- *      		BREAK :	88		|	88		|	1000000	|	usec	|	Low
- *				MAB   :			|	8		|			|	usec	|	High
- *		FRAME WIDTH	  :			|	44		|			|	usec	|	L/H
- *	START/STOP/DATA	  :			|	4		|			|	usec	|	L/H
- *    			MTBF  :	0		|	NS		|	1000000 |	usec	|	High
- *    			MTBP  : 0		|	NS		|	1000000 |	usec	|	High
+ *      		BREAK:	88		|	88		|	1000000	|	usec	|	Low
+ *				MAB:			|	8		|			|	usec	|	High
+ *		FRAME WIDTH:			|	44		|			|	usec	|	L/H
+ *	START/STOP/DATA:			|	4		|			|	usec	|	L/H
+ *				MTBF:	0		|	NS		|	1000000 |	usec	|	High
+ *				MTBP:	0		|	NS		|	1000000 |	usec	|	High
  *    			*NS = Non specify
  *    			*MTBF/MTBP =  Mark time between frame/packet
  */
@@ -41,7 +41,7 @@ void DMX_Write(DMX512_HandleTypeDef *hDMX512, uint8_t dmx_channel,uint8_t dmx_va
  * [Inter-packet Idle(MTBP) - BREAK - MARK after BREAK(MAB)] sequence to start a new packet
  * Set MTBP = 600 usec - HIGH
  * Set BREAK = 100 usec	- LOW
- * Set MAB = 12 usec - HIGH
+ * Set MAB = 15 usec - HIGH
  * @param: TIM_HandleTypeDef with TIM clk at 12Mhz / Prescaler 0 / BASE mode
  * */
 void IBM_Start(DMX512_HandleTypeDef *hDMX512)
@@ -74,6 +74,7 @@ void IBM_Start(DMX512_HandleTypeDef *hDMX512)
  *	This function has 2 lines are specific for STM32F103C8T6
  *	needed to correct those lines for another controller
  *	That will increase MAB time if SYSCLK < 48MHZ
+ *
  * @param: TIM_HandleTypeDef with TIM clk at 12Mhz / Prescaler 0 / BASE mode
  * */
 void DMX_Start(DMX512_HandleTypeDef *hDMX512)
@@ -84,16 +85,14 @@ void DMX_Start(DMX512_HandleTypeDef *hDMX512)
 		/*Start of IO mode switching*/
 		GPIOB->CRL |= 1U << 27U;
 		GPIOB->CRL |= 1U << 24U;
+
 		/* Implement this if not STM32F103C8T6
 		 * USART1IO_param.Mode = GPIO_MODE_AF_PP;
 		 * HAL_GPIO_Init(hDMX512->GPIOx,&USART1IO_param);
 		 */
 
-		/*End of mode swithching*/
-		if(HAL_UART_Transmit_IT(hDMX512->huart,hDMX512->DATA_frame,sizeof(hDMX512->DATA_frame)) != HAL_OK)
-		{
-			Error_Handler();
-		}
+		/*End of mode switching*/
+		HAL_UART_Transmit_IT(hDMX512->huart,hDMX512->DATA_frame,sizeof(hDMX512->DATA_frame));
 		IBM_done = 0; // reset Start SEQ flag
 	}
 	if((!IBM_done) && (TIM4->CR1 == 0) && (hDMX512->huart->gState != HAL_UART_STATE_BUSY_TX))
@@ -103,7 +102,7 @@ void DMX_Start(DMX512_HandleTypeDef *hDMX512)
 		USART1IO_param.Mode = GPIO_MODE_OUTPUT_PP;
 		USART1IO_param.Pull = GPIO_NOPULL;
 		USART1IO_param.Speed = GPIO_SPEED_FREQ_MEDIUM;
-		/*End of mode swithching*/
+		/*End of mode switching*/
 
 		HAL_GPIO_Init(hDMX512->GPIOx,&USART1IO_param);
 		HAL_TIM_Base_Start_IT(hDMX512->htim); // Start TIM and implement PACKET_start IN ISR
