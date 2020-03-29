@@ -6,6 +6,7 @@
 C_SRCS += \
 ../Src/DMX_data_stream.c \
 ../Src/Encoder_24B.c \
+../Src/STM32_ST7032.c \
 ../Src/it.c \
 ../Src/main.c \
 ../Src/msp.c \
@@ -15,6 +16,7 @@ C_SRCS += \
 OBJS += \
 ./Src/DMX_data_stream.o \
 ./Src/Encoder_24B.o \
+./Src/STM32_ST7032.o \
 ./Src/it.o \
 ./Src/main.o \
 ./Src/msp.o \
@@ -24,6 +26,7 @@ OBJS += \
 C_DEPS += \
 ./Src/DMX_data_stream.d \
 ./Src/Encoder_24B.d \
+./Src/STM32_ST7032.d \
 ./Src/it.d \
 ./Src/main.d \
 ./Src/msp.d \

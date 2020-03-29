@@ -20,9 +20,13 @@ void USART1_IRQHandler(void)
 {
 	HAL_UART_IRQHandler(&huart1);
 }
+
 void TIM4_IRQHandler(void)
 {
 	HAL_TIM_IRQHandler(&htim4);
 }
 
-
+void TIM3_IRQHandler (void)
+{
+	HAL_TIM_IRQHandler(&htim3);
+}

@@ -1,4 +1,4 @@
-Src/Encoder_24B.o: ../Src/Encoder_24B.c \
+Src/STM32_ST7032.o: ../Src/STM32_ST7032.c \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/main.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/CMSIS/Include/core_cm3.h \
@@ -27,7 +27,7 @@ Src/Encoder_24B.o: ../Src/Encoder_24B.c \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/DMX_data_stream.h \
- /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/Encoder_24B.h
+ /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/STM32_ST7032.h
 
 /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/main.h:
 
@@ -85,4 +85,4 @@ Src/Encoder_24B.o: ../Src/Encoder_24B.c \
 
 /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/DMX_data_stream.h:
 
-/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/Encoder_24B.h:
+/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/STM32_ST7032.h:

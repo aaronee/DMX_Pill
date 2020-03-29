@@ -46,29 +46,29 @@ TIM3C4
 $Comp
 L MCU_ST_STM32F1:STM32F103C8Tx U1
 U 1 1 5E7BAC29
-P 6350 4250
-F 0 "U1" H 6300 2661 50  0000 C CNN
-F 1 "STM32F103C8T6" H 6300 2570 50  0000 C CNN
-F 2 "Package_QFP:LQFP-48_7x7mm_P0.5mm" H 5750 2850 50  0001 R CNN
-F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00161566.pdf" H 6350 4250 50  0001 C CNN
-	1    6350 4250
+P 8700 3500
+F 0 "U1" H 8650 1911 50  0000 C CNN
+F 1 "STM32F103C8T6" H 8650 1820 50  0000 C CNN
+F 2 "Package_QFP:LQFP-48_7x7mm_P0.5mm" H 8100 2100 50  0001 R CNN
+F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00161566.pdf" H 8700 3500 50  0001 C CNN
+	1    8700 3500
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5650 4550 5600 4550
+	8000 3800 7950 3800
 Wire Wire Line
-	5650 4450 5600 4450
-Text GLabel 5600 4550 0    50   Input ~ 0
+	8000 3700 7950 3700
+Text GLabel 7950 3800 0    50   Input ~ 0
 TIM3C2
-Text GLabel 5600 4450 0    50   Input ~ 0
+Text GLabel 7950 3700 0    50   Input ~ 0
 TIM3C1
 Wire Wire Line
-	5650 4050 5600 4050
+	8000 3300 7950 3300
 Wire Wire Line
-	5650 4150 5600 4150
-Text GLabel 5600 4150 0    50   Input ~ 0
+	8000 3400 7950 3400
+Text GLabel 7950 3400 0    50   Input ~ 0
 TIM3C4
-Text GLabel 5600 4050 0    50   Input ~ 0
+Text GLabel 7950 3300 0    50   Input ~ 0
 TIM3C3
 $Comp
 L Device:C_Small C3

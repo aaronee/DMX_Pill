@@ -17,10 +17,13 @@ void GPIO_Init(void);
 void Error_Handler(void);
 void UART_Init(void);
 void TIM_Init(void);
+void I2C_Init(void);
 
-extern 	UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart1;
 extern TIM_HandleTypeDef htim4;
 extern TIM_HandleTypeDef htim3;
+extern TIM_HandleTypeDef htim2;
+extern I2C_HandleTypeDef hi2c1;
 extern DMX512_HandleTypeDef hDMX;
 
 
