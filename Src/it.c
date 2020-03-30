@@ -28,5 +28,10 @@ void TIM4_IRQHandler(void)
 
 void TIM3_IRQHandler (void)
 {
+
 	HAL_TIM_IRQHandler(&htim3);
+}
+void TIM2_IRQHandler (void)
+{
+	HAL_TIM_IRQHandler(&htim2);
 }

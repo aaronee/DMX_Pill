@@ -16,13 +16,16 @@
 /*GLOBAL VARIABLE --- GLOBAL VARIABLE --- GLOBAL VARIABLE --- GLOBAL VARIABLE --- GLOBAL VARIABLE */
 
 UART_HandleTypeDef huart1 = {0};
-TIM_HandleTypeDef htim2 = {0};
 I2C_HandleTypeDef hi2c1 = {0};
 TIM_HandleTypeDef htim4 = {0};
 TIM_HandleTypeDef htim3 = {0};
+TIM_HandleTypeDef htim2 = {0};
+
 DMX512_HandleTypeDef hDMX = {0};
 uint32_t value = 0; // testing
-uint8_t pr_flag = 0; // testing
+uint8_t sw1_r = 0; // testing
+uint8_t sw2_r = 0; // testing
+
 char mesg[80] = "DMX512";
 /* create bell shape character to (5pixel x 8pixel)
  * 0x04: x-x-x-0-0-1-0-0
@@ -58,8 +61,8 @@ int main(void)
 	//LCD struct
 	ST7032_InitTypeDef MIDAS = {0};
 	MIDAS.LCD_hi2c = &hi2c1;
-	MIDAS.LCD_htim_backlight = &htim2;
-	MIDAS.TIM_channel_backlight = TIM_CHANNEL_2;
+//	MIDAS.LCD_htim_backlight = ;
+//	MIDAS.TIM_channel_backlight = ;
 	MIDAS.i2cAddr = 0x3E;
 	MIDAS.num_col = 16;
 	MIDAS.num_lines = 2;
@@ -67,7 +70,7 @@ int main(void)
 
 	/* Sof user code */
 	LCD_ST7032_Init(&MIDAS);
-	LCD_backlight(50);
+//	LCD_backlight(50);
 	LCD_custom(bell,0);
 	LCD_setCursor(0,0);
 	LCD_write_byte(0x00);
@@ -78,16 +81,25 @@ int main(void)
 	DMX_Write(&hDMX,1,255);
 	DMX_Start(&hDMX);
 
+	HAL_TIM_Encoder_Start_IT(&htim2, TIM_CHANNEL_2); // interrupt when channel 2 fires
 	HAL_TIM_Encoder_Start_IT(&htim3, TIM_CHANNEL_2); // interrupt when channel 2 fires
+
 	/* Eof user code */
 	while(1)
 	{
-		if (pr_flag)
+		if (sw1_r)
 		{
-			LCD_clear();
+//			LCD_clear();
+			LCD_setCursor(0,0);
+			LCD_write(mesg);
+			sw1_r = 0;
+		}
+		if (sw2_r)
+		{
+//			LCD_clear();
 			LCD_setCursor(1,0);
 			LCD_write(mesg);
-			pr_flag = 0;
+			sw2_r = 0;
 		}
 	}
 	return 0;
@@ -131,9 +143,8 @@ void GPIO_Init(void)
 {
 	/* Set up port D , pin PD0 as OSC in, PD1 as OSC out*/
 	__HAL_RCC_GPIOD_CLK_ENABLE();
-
-	/*Remap Pin using FIO->MAPR register - different with STM32L4R5ZI*/
-//	AFIO->MAPR = AFIO_MAPR_USART1_REMAP;
+	__HAL_RCC_GPIOA_CLK_ENABLE();
+	__HAL_RCC_GPIOB_CLK_ENABLE();
 
 	/* Set up led PC13*/
 	__HAL_RCC_GPIOC_CLK_ENABLE();
@@ -163,6 +174,7 @@ void UART_Init(void)
 }
 void TIM_Init(void)
 {
+	/*TIM4---TIM4---TIM4---TIM4---TIM4---TIM4---TIM4---TIM4---TIM4---TIM4*/
 	htim4.Instance = TIM4;
 	htim4.Init.Prescaler = 0; // APB1 = 6Mhz => TIM4 clk = 6*2 = 12 Mhz
 	htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
@@ -177,7 +189,7 @@ void TIM_Init(void)
 	htim3.Instance = TIM3;
 	htim3.Init.Prescaler = 0; // APB1 = 6Mhz => TIM4 clk = 6*2 = 12 Mhz
 	htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-	htim3.Init.Period = 2048; // 65535 - 1
+	htim3.Init.Period = 2048;
 
 	TIM_Encoder_InitTypeDef TIM3C_param;
 	TIM3C_param.EncoderMode = TIM_ENCODERMODE_TI12;
@@ -194,27 +206,28 @@ void TIM_Init(void)
 	{
 		Error_Handler();
 	}
-	/*TIM2---TIM2---TIM2---TIM2---TIM2---TIM2---TIM2---TIM2---TIM2---TIM2*/
-		htim2.Instance = TIM2;
-		htim2.Init.Prescaler = 49;
-		htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-		htim2.Init.Period = 1999;
-		htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
-		htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 
-		if (HAL_TIM_PWM_Init(&htim2) != HAL_OK)
-		{
-			Error_Handler();
-		}
-		TIM_OC_InitTypeDef TIM2PWM_param;
-		TIM2PWM_param.OCMode = TIM_OCMODE_PWM1;
-		TIM2PWM_param.Pulse = 500;
-		TIM2PWM_param.OCFastMode = TIM_OCFAST_DISABLE;
-		TIM2PWM_param.OCPolarity = TIM_OCPOLARITY_HIGH;
-		if (HAL_TIM_PWM_ConfigChannel(&htim2,&TIM2PWM_param,TIM_CHANNEL_2) != HAL_OK)
-		{
-			Error_Handler();
-		}
+	/*TIM2---TIM2---TIM2---TIM2---TIM2---TIM2---TIM2---TIM2---TIM2---TIM2*/
+	htim2.Instance = TIM2;
+	htim2.Init.Prescaler = 0; // APB1 = 6Mhz => TIM4 clk = 6*2 = 12 Mhz
+	htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+	htim2.Init.Period = 2048;
+
+	TIM_Encoder_InitTypeDef TIM2C_param;
+	TIM2C_param.EncoderMode = TIM_ENCODERMODE_TI12;
+	TIM2C_param.IC1Polarity = TIM_ICPOLARITY_BOTHEDGE;
+	TIM2C_param.IC1Selection = TIM_ICSELECTION_DIRECTTI;
+	TIM2C_param.IC1Prescaler = TIM_ICPSC_DIV1;
+	TIM2C_param.IC1Filter = 0xF;
+	TIM2C_param.IC2Polarity = TIM_ICPOLARITY_BOTHEDGE;
+	TIM2C_param.IC2Selection = TIM_ICSELECTION_DIRECTTI;
+	TIM2C_param.IC2Prescaler = TIM_ICPSC_DIV1;
+	TIM2C_param.IC2Filter = 0xF;
+
+	if (HAL_TIM_Encoder_Init(&htim2,&TIM2C_param) != HAL_OK)
+	{
+		Error_Handler();
+	}
 }
 void I2C_Init (void)
 {
@@ -253,7 +266,15 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 		if (value == 0)
 			value = 512;
 		sprintf(mesg,"%lu",value);
-		pr_flag = 1;
+		sw1_r = 1;
+	}
+	if (htim->Instance == TIM2)
+	{
+		value = htim->Instance->CNT / 4;
+		if (value == 0)
+			value = 512;
+		sprintf(mesg,"%lu",value);
+		sw2_r = 1;
 	}
 }
 
