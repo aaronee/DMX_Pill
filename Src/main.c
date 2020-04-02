@@ -22,11 +22,12 @@ TIM_HandleTypeDef htim3 = {0};
 TIM_HandleTypeDef htim2 = {0};
 
 DMX512_HandleTypeDef hDMX = {0};
-uint32_t value = 0; // testing
-uint8_t sw1_r = 0; // testing
-uint8_t sw2_r = 0; // testing
+uint8_t sw_cc = 0; // testing
+uint8_t sw_flag = FALSE;
 
-char mesg[80] = "DMX512";
+
+char mesg[80] = "Hello";
+
 /* create bell shape character to (5pixel x 8pixel)
  * 0x04: x-x-x-0-0-1-0-0
  * 0x0E: x-x-x-0-1-1-1-0
@@ -43,7 +44,7 @@ uint8_t bell[8] = {0x04,0x0E,0x0E,0x0E,0x0E,0x1F,0x04,0x00};
 int main(void)
 {
 	/* Sof Initialize code */
-	HAL_Init();
+ 	HAL_Init();
 	GPIO_Init();
 	SYSCLK_Init();
 	UART_Init();
@@ -71,35 +72,47 @@ int main(void)
 	/* Sof user code */
 	LCD_ST7032_Init(&MIDAS);
 //	LCD_backlight(50);
-	LCD_custom(bell,0);
-	LCD_setCursor(0,0);
-	LCD_write_byte(0x00);
-	LCD_setCursor(0,1);
-	LCD_write(mesg);
-	LCD_blink_on();
 
-	DMX_Write(&hDMX,1,255);
-	DMX_Start(&hDMX);
 
-	HAL_TIM_Encoder_Start_IT(&htim2, TIM_CHANNEL_2); // interrupt when channel 2 fires
-	HAL_TIM_Encoder_Start_IT(&htim3, TIM_CHANNEL_2); // interrupt when channel 2 fires
+	DMX_Write(&hDMX,1,25);
+	DMX_Write(&hDMX,2,50);
+	DMX_Write(&hDMX,2,55);
+	DMX_Write(&hDMX,3,80);
+	DMX_Write(&hDMX,4,120);
+//	DMX_Start(&hDMX);
+
+	HAL_TIM_Encoder_Start_IT(&htim2, TIM_CHANNEL_ALL); // interrupt when channel 2 fires
+	HAL_TIM_Encoder_Start_IT(&htim3, TIM_CHANNEL_ALL); // interrupt when channel 2 fires
 
 	/* Eof user code */
 	while(1)
 	{
-		if (sw1_r)
+		if (sw_flag)
 		{
-//			LCD_clear();
-			LCD_setCursor(0,0);
-			LCD_write(mesg);
-			sw1_r = 0;
-		}
-		if (sw2_r)
-		{
-//			LCD_clear();
-			LCD_setCursor(1,0);
-			LCD_write(mesg);
-			sw2_r = 0;
+			switch (sw_flag)
+			{
+			case SW1:
+				if(sw_cc)
+				{
+					GUI_nav(SW1,sw_cc);
+				}
+				else
+				{
+					GUI_nav(SW1,!sw_cc);
+				}
+				break;
+			case SW2:
+				if(sw_cc)
+				{
+					GUI_nav(SW2,sw_cc);
+				}
+				else
+				{
+					GUI_nav(SW2,!sw_cc);
+				}
+				break;
+			}
+			sw_flag = FALSE;
 		}
 	}
 	return 0;
@@ -262,19 +275,29 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance == TIM3)
 	{
-		value = htim->Instance->CNT / 4;
-		if (value == 0)
-			value = 512;
-		sprintf(mesg,"%lu",value);
-		sw1_r = 1;
+		if(htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1 && !sw_flag)
+		{
+			sw_cc = TRUE;
+			sw_flag = SW1;
+		}
+		if(htim->Channel == HAL_TIM_ACTIVE_CHANNEL_2 && !sw_flag)
+		{
+			sw_cc = FALSE;
+			sw_flag = SW1;
+		}
 	}
 	if (htim->Instance == TIM2)
 	{
-		value = htim->Instance->CNT / 4;
-		if (value == 0)
-			value = 512;
-		sprintf(mesg,"%lu",value);
-		sw2_r = 1;
+		if(htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1 && !sw_flag)
+		{
+			sw_cc = TRUE;
+			sw_flag = SW2;
+		}
+		if(htim->Channel == HAL_TIM_ACTIVE_CHANNEL_2 && !sw_flag)
+		{
+			sw_cc = FALSE;
+			sw_flag = SW2;
+		}
 	}
 }
 

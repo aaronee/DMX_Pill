@@ -32,9 +32,19 @@ uint8_t IBM_done = 0; // IBM not done yet
 GPIO_InitTypeDef USART1IO_param;
 
 /* This function is used to set the value of a DMX channel when called */
-void DMX_Write(DMX512_HandleTypeDef *hDMX512, uint8_t dmx_channel,uint8_t dmx_value)
+void DMX_Write(DMX512_HandleTypeDef *hDMX512, uint16_t dmx_channel,uint8_t dmx_value)
 {
+	if (dmx_value > 255)
+	{
+		dmx_value = 255;
+	}
 	hDMX512->DATA_frame[dmx_channel] = dmx_value;
+
+	//Adding corresponding dmx data as % to DATA_percent[513] array
+	uint16_t temp = dmx_value * 100;
+	temp /= 255;
+	hDMX512->DATA_percent[dmx_channel] = (uint8_t)temp;
+
 }
 /* This function is implemented in HAL_TIM_PeriodElapsedCallback
  * This function will generate IBM sequence on TX pin

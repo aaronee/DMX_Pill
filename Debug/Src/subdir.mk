@@ -4,6 +4,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Src/DMX_Pill_GUI.c \
 ../Src/DMX_data_stream.c \
 ../Src/STM32_ST7032.c \
 ../Src/it.c \
@@ -13,6 +14,7 @@ C_SRCS += \
 ../Src/system_stm32f1xx.c 
 
 OBJS += \
+./Src/DMX_Pill_GUI.o \
 ./Src/DMX_data_stream.o \
 ./Src/STM32_ST7032.o \
 ./Src/it.o \
@@ -22,6 +24,7 @@ OBJS += \
 ./Src/system_stm32f1xx.o 
 
 C_DEPS += \
+./Src/DMX_Pill_GUI.d \
 ./Src/DMX_data_stream.d \
 ./Src/STM32_ST7032.d \
 ./Src/it.d \

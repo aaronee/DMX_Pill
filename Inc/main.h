@@ -8,6 +8,11 @@
 #ifndef INC_MAIN_H_
 #define INC_MAIN_H_
 
+#define TRUE 1
+#define FALSE 0
+#define SW2 2
+#define SW1 1
+
 #include "stm32f103xb.h"
 #include "stm32f1xx_hal.h"
 #include "DMX_data_stream.h"
@@ -25,6 +30,7 @@ extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim2;
 extern I2C_HandleTypeDef hi2c1;
 extern DMX512_HandleTypeDef hDMX;
+extern uint8_t sw_cc;
 
 
 #endif /* INC_MAIN_H_ */

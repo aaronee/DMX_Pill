@@ -29,7 +29,7 @@ uint8_t _initialized = 0;
 ST7032_InitTypeDef _hlcd = {0};
 
 const int	CMD_DELAY           = 1;	// Command delay in miliseconds
-const int	CHAR_DELAY          = 0;	// Delay between characters in miliseconds
+const int	CHAR_DELAY          = 1;	// Delay between characters in miliseconds
 const int	MAX_CCHAR			= 8;	// Maximum custom character
 /* LCD Command set */
 const uint8_t DISP_CMD			= 0x0;	// Command for the display

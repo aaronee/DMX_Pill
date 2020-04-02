@@ -22,13 +22,16 @@ void HAL_MspInit(void)
 	__HAL_RCC_PWR_CLK_ENABLE();
 	__HAL_RCC_AFIO_CLK_ENABLE(); // ENABLE AFIO to mapping pins alternate function
 	AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_JTAGDISABLE;
-//	__HAL_AFIO_REMAP_SWJ_NOJTAG();
-//	DBGMCU_CR |= (0x1UL << (5U));	// remap SWO TRACE - release PB3 to another pin
-//	DBGMCU_CR |= (0x1UL << (6U));	// remap SWO TRACE - release PB3 to another pin
 
-	DBGMCU_CR &= ~(0x1UL << (5U));	// remap SWO TRACE to PB3
-	DBGMCU_CR &= ~(0x1UL << (6U));	// remap SWO TRACE to PB3
+	__HAL_AFIO_REMAP_SWJ_NOJTAG();
 
+	DBGMCU_CR |= (0x1UL << (5U));	// remap SWO TRACE - release PB3 to another pin
+	DBGMCU_CR |= (0x1UL << (6U));	// remap SWO TRACE - release PB3 to another pin
+
+//	DBGMCU_CR &= ~(0x1UL << (5U));	// remap SWO TRACE to PB3
+//	DBGMCU_CR &= ~(0x1UL << (6U));	// remap SWO TRACE to PB3
+
+	//DBGMCU_CR will not change on RESET
 
 }
 

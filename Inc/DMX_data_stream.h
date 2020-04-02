@@ -14,10 +14,11 @@ typedef struct {
 	GPIO_TypeDef *GPIOx; // GPIO Port for UART
 	uint16_t GPIO_Pin;	// Pin for UART TX
 	uint8_t DATA_frame[513];
+	uint8_t DATA_percent[513];
 
 } DMX512_HandleTypeDef;
 
-extern void DMX_Write(DMX512_HandleTypeDef *hDMX512, uint8_t dmx_channel,uint8_t dmx_value);
+extern void DMX_Write(DMX512_HandleTypeDef *hDMX512, uint16_t dmx_channel,uint8_t dmx_value);
 extern void IBM_Start(DMX512_HandleTypeDef *hDMX512);
 extern void DMX_Start(DMX512_HandleTypeDef *hDMX512);
 
