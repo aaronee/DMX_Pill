@@ -46,6 +46,25 @@ void DMX_Write(DMX512_HandleTypeDef *hDMX512, uint16_t dmx_channel,uint8_t dmx_v
 	hDMX512->DATA_percent[dmx_channel] = (uint8_t)temp;
 
 }
+/* This function is used to set the value of a DMX channel when called in percentage */
+void DMX_Write_per(DMX512_HandleTypeDef *hDMX512, uint16_t dmx_channel,uint8_t dmx_value_per)
+{
+	if (dmx_value_per == 101)
+	{
+		dmx_value_per = 0;
+	}
+	if (dmx_value_per == 0xFF)
+	{
+		dmx_value_per = 100;
+	}
+	hDMX512->DATA_percent[dmx_channel] = dmx_value_per;
+
+	//Adding corresponding dmx data as % to DATA_percent[513] array
+	uint16_t temp = dmx_value_per * 255;
+	temp /= 100;
+	hDMX512->DATA_frame[dmx_channel] = (uint8_t)temp;
+
+}
 /* This function is implemented in HAL_TIM_PeriodElapsedCallback
  * This function will generate IBM sequence on TX pin
  * [Inter-packet Idle(MTBP) - BREAK - MARK after BREAK(MAB)] sequence to start a new packet

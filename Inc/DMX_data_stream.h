@@ -19,6 +19,7 @@ typedef struct {
 } DMX512_HandleTypeDef;
 
 extern void DMX_Write(DMX512_HandleTypeDef *hDMX512, uint16_t dmx_channel,uint8_t dmx_value);
+extern void DMX_Write_per(DMX512_HandleTypeDef *hDMX512, uint16_t dmx_channel,uint8_t dmx_value_per);
 extern void IBM_Start(DMX512_HandleTypeDef *hDMX512);
 extern void DMX_Start(DMX512_HandleTypeDef *hDMX512);
 

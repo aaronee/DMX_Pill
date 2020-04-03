@@ -73,13 +73,7 @@ int main(void)
 	LCD_ST7032_Init(&MIDAS);
 //	LCD_backlight(50);
 
-
-	DMX_Write(&hDMX,1,25);
-	DMX_Write(&hDMX,2,50);
-	DMX_Write(&hDMX,2,55);
-	DMX_Write(&hDMX,3,80);
-	DMX_Write(&hDMX,4,120);
-//	DMX_Start(&hDMX);
+	DMX_Start(&hDMX);
 
 	HAL_TIM_Encoder_Start_IT(&htim2, TIM_CHANNEL_ALL); // interrupt when channel 2 fires
 	HAL_TIM_Encoder_Start_IT(&htim3, TIM_CHANNEL_ALL); // interrupt when channel 2 fires
