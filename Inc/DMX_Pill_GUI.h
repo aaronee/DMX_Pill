@@ -13,7 +13,8 @@
 #include <stdio.h>
 #include "STM32_ST7032.h"
 
-extern void GUI_nav(uint8_t sw_nav, uint8_t nav);
+extern void GUI_nav(uint8_t sw, uint8_t nav);
+extern void GUI_startup(void);
 
 
 

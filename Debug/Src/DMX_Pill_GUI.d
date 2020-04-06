@@ -28,6 +28,7 @@ Src/DMX_Pill_GUI.o: ../Src/DMX_Pill_GUI.c \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/DMX_data_stream.h \
+ /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/DMX_Pill_GUI.h \
  /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/STM32_ST7032.h
 
 /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/DMX_Pill_GUI.h:
@@ -87,5 +88,7 @@ Src/DMX_Pill_GUI.o: ../Src/DMX_Pill_GUI.c \
 /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
 
 /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/DMX_data_stream.h:
+
+/Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/DMX_Pill_GUI.h:
 
 /Users/khoahuynh/Documents/Document/STM32F103CB-BluePill/DMX_Pill/Inc/STM32_ST7032.h:

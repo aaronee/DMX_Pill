@@ -267,7 +267,11 @@ void LCD_backlight(uint8_t percentage)
 			uint16_t CCR_value = (percentage * _hlcd.LCD_htim_backlight->Init.Period) / 100;
 			TIM_OC_InitTypeDef TIMPWM_param;
 			TIMPWM_param.OCMode = TIM_OCMODE_PWM1;
-			TIMPWM_param.Pulse = CCR_value+1;
+			TIMPWM_param.Pulse = CCR_value;
+			if (percentage == 100)
+			{
+				TIMPWM_param.Pulse = CCR_value+1;
+			}
 			TIMPWM_param.OCFastMode = TIM_OCFAST_DISABLE;
 			TIMPWM_param.OCPolarity = TIM_OCPOLARITY_HIGH;
 			if (HAL_TIM_PWM_ConfigChannel(_hlcd.LCD_htim_backlight,&TIMPWM_param,_hlcd.TIM_channel_backlight) != HAL_OK)

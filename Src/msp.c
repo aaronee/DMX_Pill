@@ -134,3 +134,25 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c)
 		HAL_NVIC_SetPriority(I2C1_ER_IRQn,15,0);
 	}
 }
+void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
+{
+	if (htim->Instance == htim1.Instance)
+	{
+		//	Enable clk for TIM2 and GPIOB
+		__HAL_RCC_TIM1_CLK_ENABLE();
+
+		// Config IO for TIM2 PWM output
+		GPIO_InitTypeDef TIM1PWMIO_param;
+		TIM1PWMIO_param.Mode = GPIO_MODE_AF_PP;
+		TIM1PWMIO_param.Pin = GPIO_PIN_9;
+		TIM1PWMIO_param.Pull = GPIO_PULLUP;
+		TIM1PWMIO_param.Speed = GPIO_SPEED_FREQ_LOW;
+		HAL_GPIO_Init(GPIOA,&TIM1PWMIO_param);
+//		GPIOA->CRH |= (1u << 7); // AF push pull
+//		GPIOA->CRH &= ~(1u << 6);
+//		GPIOA->CRH &= ~(1u << 5); // max 10Mhz
+//		GPIOA->CRH |= (1u << 4);
+
+//		__HAL_AFIO_REMAP_TIM1_PARTIAL(); // CH2-PA9
+	}
+}

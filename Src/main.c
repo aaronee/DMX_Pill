@@ -20,11 +20,13 @@ I2C_HandleTypeDef hi2c1 = {0};
 TIM_HandleTypeDef htim4 = {0};
 TIM_HandleTypeDef htim3 = {0};
 TIM_HandleTypeDef htim2 = {0};
+TIM_HandleTypeDef htim1 = {0};
 
 DMX512_HandleTypeDef hDMX = {0};
 uint8_t sw_cc = 0; // testing
 uint8_t sw_flag = FALSE;
-
+uint8_t contrast = 7; // 7/15 level
+uint8_t backlit = 30; // 100-30 = 70%
 
 char mesg[80] = "Hello";
 
@@ -62,8 +64,8 @@ int main(void)
 	//LCD struct
 	ST7032_InitTypeDef MIDAS = {0};
 	MIDAS.LCD_hi2c = &hi2c1;
-//	MIDAS.LCD_htim_backlight = ;
-//	MIDAS.TIM_channel_backlight = ;
+	MIDAS.LCD_htim_backlight = &htim1;
+	MIDAS.TIM_channel_backlight = TIM_CHANNEL_2;
 	MIDAS.i2cAddr = 0x3E;
 	MIDAS.num_col = 16;
 	MIDAS.num_lines = 2;
@@ -71,12 +73,14 @@ int main(void)
 
 	/* Sof user code */
 	LCD_ST7032_Init(&MIDAS);
-//	LCD_backlight(50);
+	LCD_backlight(backlit);
 
 	DMX_Start(&hDMX);
 
 	HAL_TIM_Encoder_Start_IT(&htim2, TIM_CHANNEL_ALL); // interrupt when channel 2 fires
 	HAL_TIM_Encoder_Start_IT(&htim3, TIM_CHANNEL_ALL); // interrupt when channel 2 fires
+
+	GUI_startup();
 
 	/* Eof user code */
 	while(1)
@@ -106,6 +110,7 @@ int main(void)
 				}
 				break;
 			}
+			HAL_Delay(5); // wait to void the 2nd channel interrupt from sw
 			sw_flag = FALSE;
 		}
 	}
@@ -235,6 +240,28 @@ void TIM_Init(void)
 	{
 		Error_Handler();
 	}
+
+	/*TIM1---TIM1---TIM1---TIM1---TIM1---TIM1---TIM1---TIM1---TIM1---TIM1*/
+	htim1.Instance = TIM1;
+	htim1.Init.Prescaler = 49;
+	htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
+	htim1.Init.Period = 1999;
+	htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+	htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+
+	if (HAL_TIM_PWM_Init(&htim1) != HAL_OK)
+	{
+		Error_Handler();
+	}
+	TIM_OC_InitTypeDef TIM1PWM_param;
+	TIM1PWM_param.OCMode = TIM_OCMODE_PWM1;
+	TIM1PWM_param.Pulse = 500;
+	TIM1PWM_param.OCFastMode = TIM_OCFAST_DISABLE;
+	TIM1PWM_param.OCPolarity = TIM_OCPOLARITY_HIGH;
+	if (HAL_TIM_PWM_ConfigChannel(&htim1,&TIM1PWM_param,TIM_CHANNEL_2) != HAL_OK) // PA9
+	{
+		Error_Handler();
+	}
 }
 void I2C_Init (void)
 {
@@ -269,29 +296,27 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance == TIM3)
 	{
-		if(htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1 && !sw_flag)
+		if(htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1)
 		{
 			sw_cc = TRUE;
-			sw_flag = SW1;
 		}
-		if(htim->Channel == HAL_TIM_ACTIVE_CHANNEL_2 && !sw_flag)
+		if(htim->Channel == HAL_TIM_ACTIVE_CHANNEL_2)
 		{
 			sw_cc = FALSE;
-			sw_flag = SW1;
 		}
+		sw_flag = SW1;
 	}
 	if (htim->Instance == TIM2)
 	{
-		if(htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1 && !sw_flag)
+		if(htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1)
 		{
 			sw_cc = TRUE;
-			sw_flag = SW2;
 		}
-		if(htim->Channel == HAL_TIM_ACTIVE_CHANNEL_2 && !sw_flag)
+		if(htim->Channel == HAL_TIM_ACTIVE_CHANNEL_2)
 		{
 			sw_cc = FALSE;
-			sw_flag = SW2;
 		}
+		sw_flag = SW2;
 	}
 }
 

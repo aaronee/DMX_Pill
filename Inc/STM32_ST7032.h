@@ -49,6 +49,7 @@ extern void LCD_cursor_on(void);
 extern void LCD_cursor_off(void);
 extern void LCD_blink_on(void);
 extern void LCD_blink_off(void);
+extern void LCD_command(uint8_t cmd);
 
 /** @defgroup screen_cursor_select
   * @{
