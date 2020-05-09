@@ -12,7 +12,7 @@
 * All libs are based on STM32 HAL lib, must implement STM32 HAL lib to use them
  
 ## MainFunction:
-1. Select and adjust DMX512 channel
+1. Select and adjust DMX512 channel(s)
 2. Interrupt driven
 3. Low power consumption
 4. Friendly GUI
